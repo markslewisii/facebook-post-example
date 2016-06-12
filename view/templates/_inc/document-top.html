@@ -1,0 +1,38 @@
+{*
+@var string $title title
+@var array $css list of css files
+@var array $js list of js files
+@var string $script javascript to place in <head>
+*}
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>{$title}</title>
+
+	{* CSS files *}
+	{if isset($css)}
+		{foreach $css as $css_file}
+		<link rel="stylesheet" href="{$css_file}" />
+		{/foreach}
+	{else}
+		<link rel="stylesheet" href="/js/jQRangeSlider/css/iThing.css" />
+	{/if}
+
+	{* JS files *}
+	{if isset($js)}
+		{foreach $js as $js_file}
+		<script src="{$js_file}"></script>
+		{/foreach}
+	{else}
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="/js/jQRangeSlider/jQDateRangeSlider.js"></script>
+	{/if}
+	<script>
+		{$script}
+	</script>
+	
+</head>
+<body>

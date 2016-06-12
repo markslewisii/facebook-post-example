@@ -11,6 +11,7 @@ class ComposerStaticInita25c680f535eb5efb18ca5309f7100f1
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '7e702cccdb9dd904f2ccf22e5f37abae' => __DIR__ . '/..' . '/facebook/php-sdk-v4/src/Facebook/polyfills.php',
+        '6dafd02308477d48c11f9f3bd775d9fb' => __DIR__ . '/../..' . '/config/global.conf.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -39,15 +40,12 @@ class ComposerStaticInita25c680f535eb5efb18ca5309f7100f1
         'F' => 
         array (
             'Facebook\\' => 9,
+            'FBSE\\' => 5,
         ),
         'D' => 
         array (
             'Doctrine\\Instantiator\\' => 22,
             'DeepCopy\\' => 9,
-        ),
-        'A' => 
-        array (
-            'Acme\\' => 5,
         ),
     );
 
@@ -86,6 +84,10 @@ class ComposerStaticInita25c680f535eb5efb18ca5309f7100f1
         array (
             0 => __DIR__ . '/..' . '/facebook/php-sdk-v4/src/Facebook',
         ),
+        'FBSE\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/lib',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
@@ -93,10 +95,6 @@ class ComposerStaticInita25c680f535eb5efb18ca5309f7100f1
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
-        ),
-        'Acme\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
@@ -110,10 +108,15 @@ class ComposerStaticInita25c680f535eb5efb18ca5309f7100f1
         ),
     );
 
+    public static $fallbackDirsPsr0 = array (
+        0 => __DIR__ . '/../..' . '/lib',
+    );
+
     public static $classMap = array (
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'PHPUnit\\Framework\\TestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestCase.php',
         'PHPUnit_Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit_Extensions_GroupTestSuite' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/GroupTestSuite.php',
         'PHPUnit_Extensions_PhptTestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/Extensions/PhptTestCase.php',
@@ -729,7 +732,6 @@ class ComposerStaticInita25c680f535eb5efb18ca5309f7100f1
         'TP_yyStackEntry' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_templateparser.php',
         'TP_yyToken' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_internal_templateparser.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
-        'phpunit\\framework\\TestCase' => __DIR__ . '/..' . '/phpunit/phpunit/src/ForwardCompatibility/TestCase.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -738,6 +740,7 @@ class ComposerStaticInita25c680f535eb5efb18ca5309f7100f1
             $loader->prefixLengthsPsr4 = ComposerStaticInita25c680f535eb5efb18ca5309f7100f1::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInita25c680f535eb5efb18ca5309f7100f1::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInita25c680f535eb5efb18ca5309f7100f1::$prefixesPsr0;
+            $loader->fallbackDirsPsr0 = ComposerStaticInita25c680f535eb5efb18ca5309f7100f1::$fallbackDirsPsr0;
             $loader->classMap = ComposerStaticInita25c680f535eb5efb18ca5309f7100f1::$classMap;
 
         }, null, ClassLoader::class);

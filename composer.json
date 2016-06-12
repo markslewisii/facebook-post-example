@@ -7,6 +7,8 @@
         "phpunit/phpunit": "^5.4"
     },
     "autoload": {
-        "psr-4": {"FBSE\\": "lib/"}
+        "files": ["config/global.conf.php"],
+        "psr-4": {"FBSE\\": "lib/"},
+        "psr-0": { "": "lib/" }
     }
 }

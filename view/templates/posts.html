@@ -1,0 +1,31 @@
+{*
+ * @var array $fb_posts Posts for the current Facebook page
+ *}
+{capture name="js_script"}
+jQuery(window).load(function() {
+
+	jQuery('div[fb-page-id]').click(function() {
+		window.location.href = '/pages.php?id=' + jQuery(this).attr('fb-page-id');
+	});
+
+	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+	jQuery("#date_slider").dateRangeSlider();
+
+});
+
+
+
+{/capture}
+{include file="_inc/document-top.html" script=$smarty.capture.js_script}
+<h2>Posts</h2>
+
+<div id="date_slider"></div>
+
+{foreach $fb_posts as $post}
+<div fb-post-id="{$post}">
+	<strong>{$post['created_time']->timezone}</strong><br />
+	{$post|@print_r}
+</div>
+{/foreach}
+
+{include file="_inc/document-bottom.html"}
