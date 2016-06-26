@@ -1,0 +1,42 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title></title>
+
+	<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css">
+	<script src="//code.jquery.com/jquery-2.2.4.js"></script>
+	<script src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+	<link rel="stylesheet" href="/js/jQRangeSlider-5.7.2/css/iThing.css" type="text/css" />
+	<script src="/js/jQRangeSlider-5.7.2/jQAllRangeSliders-min.js"></script>
+
+
+	<script>
+
+			jQuery(window).load(function() {
+
+				jQuery('div[fb-page-id]').click(function() {
+					window.location.href = '/pages.php?id=' + jQuery(this).attr('fb-page-id');
+				});
+
+				var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
+		        jQuery("#slider").dateRangeSlider();
+			});
+
+
+
+
+	</script>
+</head>
+<body>
+<div class="container">
+<button onclick="window.location.href='https://www.facebook.com/v2.6/dialog/oauth?client_id=1611551282490800&state=0ee4e438e43c64b649c75d7e9442edcc&response_type=code&sdk=php-sdk-5.2.0&redirect_uri=http%3A%2F%2Ffb.configuredbase.local%2Ffb-callback.php&scope=user_posts%2Cmanage_pages'">Login with Facebook</button>
+
+<div id="slider"></div>
+</div>
+</body>
+</html>

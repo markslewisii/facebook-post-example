@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+
+	
+	<link rel="stylesheet" href="/js/jQRangeSlider/css/iThing.css" />	
+	
+	<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css">
+	<script src="//code.jquery.com/jquery-2.2.4.js"></script>
+	<script src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+	<link rel="stylesheet" href="/js/jQRangeSlider-5.7.2/css/iThing.css" type="text/css" />
+	<script src="/js/jQRangeSlider-5.7.2/jQAllRangeSliders-min.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+	<script type="text/javascript" src="/jsapi/js/handlebars-file.js"></script>
+
+	<script>
+
+
+	window.fbAsyncInit = function() {
+		FB.init({
+		    appId      : '1611551282490800',
+		    xfbml      : false,
+   	      	version    : 'v2.6'
+	    });
+	};
+	(function(d, s, id){
+	    var js, fjs = d.getElementsByTagName(s)[0];
+    	if (d.getElementById(id)) {return;}
+    	js = d.createElement(s); js.id = id;
+    	js.src = "//connect.facebook.net/en_US/sdk.js";
+    	fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+
+	jQuery(window).load(function() {
+
+		FB.getLoginStatus(function(response) {
+  			if (response.status === 'connected') {
+    			console.log('Logged in.');
+    			getAccounts();
+  			} else {
+    			FB.login(function(response) {
+				    if (response.authResponse) {
+				    	console.log('Welcome!  Fetching your information.... ');
+				    	getAccounts();
+				    } else {
+				    	console.log('User cancelled login or did not fully authorize.');
+				    }
+				}, {scope: 'publish_actions'});
+  			}
+		});
+
+	});
+
+	function getAccounts() {
+    	FB.api('/me', function(response) {
+    		console.log('Good to see you, ' + response.name + '.');
+	    	FB.api('/me/accounts', function(response) {
+    			console.log('pages: ' + JSON.stringify(response, null, 2) + '.');
+			});
+    	});
+	}
+
+
+	</script>
+	
+</head>
+<body>
+</body>
+</html>

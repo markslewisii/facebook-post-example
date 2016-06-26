@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-06-11 23:20:57
+/* Smarty version 3.1.29, created on 2016-06-12 15:57:19
   from "/opt/httpd/fb.configuredbase.local/view/templates/_inc/document-top.html" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_575cff49e65098_99012897',
+  'unifunc' => 'content_575de8cf942591_73464306',
   'file_dependency' => 
   array (
     '82d82efcc371bf7a17a4759ad9a5e0995cf450ed' => 
     array (
       0 => '/opt/httpd/fb.configuredbase.local/view/templates/_inc/document-top.html',
-      1 => 1465712441,
+      1 => 1465772228,
       2 => 'file',
     ),
   ),
@@ -19,7 +19,7 @@ if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl,
   array (
   ),
 ),false)) {
-function content_575cff49e65098_99012897 ($_smarty_tpl) {
+function content_575de8cf942591_73464306 ($_smarty_tpl) {
 ?>
 
 <!doctype html>
@@ -83,14 +83,17 @@ $_smarty_tpl->tpl_vars['js_file'] = $__foreach_js_file_1_saved_item;
 }
 ?>
 	<?php } else { ?>
-		<?php echo '<script'; ?>
- src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"><?php echo '</script'; ?>
+	<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css">
+	<?php echo '<script'; ?>
+ src="//code.jquery.com/jquery-2.2.4.js"><?php echo '</script'; ?>
 >
-		<?php echo '<script'; ?>
- src="//code.jquery.com/ui/1.11.4/jquery-ui.js"><?php echo '</script'; ?>
+	<?php echo '<script'; ?>
+ src="/js/jquery-ui-1.11.4/jquery-ui.min.js"><?php echo '</script'; ?>
 >
-		<?php echo '<script'; ?>
- src="/js/jQRangeSlider/jQDateRangeSlider.js"><?php echo '</script'; ?>
+
+	<link rel="stylesheet" href="/js/jQRangeSlider-5.7.2/css/iThing.css" type="text/css" />
+	<?php echo '<script'; ?>
+ src="/js/jQRangeSlider-5.7.2/jQAllRangeSliders-min.js"><?php echo '</script'; ?>
 >
 	<?php }?>
 	<?php echo '<script'; ?>

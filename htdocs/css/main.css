@@ -1,0 +1,52 @@
+.modal-overlay {
+    position: fixed;
+    width:100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    /* opacity:0; */
+    display: none;
+
+    pointer-events: none;
+
+    padding-top:25% ;
+}
+
+.modal-overlay .panel {
+	pointer-events: all;
+}
+
+
+
+
+
+/* JQRangeSlider */
+
+/*
+.ui-rangeSlider-bar {
+	display: none;
+}
+
+.ui-rangeSlider-leftLabel {
+	opacity: 0;
+	width: 0px;
+	height: 0px;
+	left: 0;
+}
+*/
+
+.sliderTick {
+	color: white;
+	border-left: 1px solid white;
+	/*
+	margin-top: 1px;
+	height: 29px;
+	padding-left: 2px;
+	position: relative;
+	*/
+}
+
+

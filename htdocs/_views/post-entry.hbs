@@ -1,0 +1,10 @@
+<div class="panel panel-info jq-event-listener" data-fb-postid="{{id}}">
+	<div class="panel-heading">{{formatdate date}}</div>
+	<div class="panel-body">
+		{{#if story}}
+			<strong>{{story}}</strong><br />
+		{{/if}}
+		{{message}}
+	</div>
+	{{#if views}}<div class="panel-footer">views: <span class="post-views">{{views}}</span></div>{{/if}}
+</div>

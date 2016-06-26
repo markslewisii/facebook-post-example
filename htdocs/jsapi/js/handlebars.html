@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+
+	
+	<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css">
+	<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+	<script src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+	<script type="text/javascript" src="/jsapi/js/handlebars-loadtemplate.js"></script>
+
+	<script>
+
+
+	jQuery(window).load(function() {
+		Handlebars.loadTemplate('./test.html').then(
+			function(source) {
+				console.log(source());
+			}
+		)
+		.catch(
+			function(err) {
+				console.log('error:' + err);
+			}
+		);
+		
+
+	});
+
+
+	</script>
+	
+</head>
+<body>
+</body>
+</html>

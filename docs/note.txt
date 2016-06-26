@@ -1,0 +1,11 @@
+Javascript SDK:
+https://developers.facebook.com/docs/javascript/howto/jquery/v2.6
+
+Number of people who viewed each post:
+post_impressions_unique
+https://developers.facebook.com/docs/graph-api/reference/v2.6/insights
+
+Handlebars templating:
+http://handlebarsjs.com/
+
+
