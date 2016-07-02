@@ -389,8 +389,8 @@
 					postID = data.postID;
 					data.postID = null;
 					FB.updatePost(jQuery(".jumbotron .page").attr("fb-pageid"), postID, function(response) {
-					}
-				}
+					});
+				})
 
 				/* delete post */
 				.on("post:delete", function(evt, postID) {
