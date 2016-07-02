@@ -6,10 +6,11 @@ Handlebars.loadTemplate = function(file) {
 		function(resolve, reject) {
 		    jQuery.ajax({
 		        url: file,
-		        cache: true,
+		        cache: false,
+		        dataType: "html",
 		        success: function(data) {
-		            source    = data;
-		            resolve(Handlebars.compile(source));
+		        	// console.log(data);
+		            resolve(Handlebars.compile(data));
 		        },              
 		        error: function(data) {
 		            reject(data);

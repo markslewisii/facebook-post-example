@@ -20,7 +20,9 @@
 }
 
 
-
+.navbar-right {
+	margin-left: 10px;
+}
 
 
 /* JQRangeSlider */
