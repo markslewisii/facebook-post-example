@@ -2,723 +2,171 @@
 
 <html lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-	<!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-responsive.css" / -->
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+    <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-responsive.css" / -->
 
-	<!-- jQuery -->
-	<link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
-	<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
-	<script src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <!-- jQuery -->
+    <link rel="stylesheet" href="/js/jquery-ui-1.11.4/jquery-ui.min.css" />
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="/js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="/js/jquery-broadcast.js"></script>
 
-	<!-- Bootstrap JS -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 
 
-	<!-- Range Slider -->
-	<!-- link rel="stylesheet" href="/js/jQRangeSlider/css/iThing.css" />
-	<link rel="stylesheet" href="/js/jQRangeSlider-5.7.2/css/iThing.css" type="text/css" />
-	<script src="/js/jQRangeSlider-5.7.2/jQAllRangeSliders-min.js"></script -->
+    <!-- Range Slider -->
+    <!-- link rel="stylesheet" href="/js/jQRangeSlider/css/iThing.css" />
+    <link rel="stylesheet" href="/js/jQRangeSlider-5.7.2/css/iThing.css" type="text/css" />
+    <script src="/js/jQRangeSlider-5.7.2/jQAllRangeSliders-min.js"></script -->
 
-	<!-- Handlebars -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
-	<script type="text/javascript" src="/js/handlebars-loadtemplate.js"></script>
+    <!-- Handlebars -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script type="text/javascript" src="/js/handlebars-loadtemplate.js"></script>
 
-	<!-- Application -->
-	<link rel="stylesheet" href="/css/main.css" />
+    <!-- Facebook extension -->
+    <script type="text/javascript" src="/js/fb-extend.js"></script>
 
-	<!-- script type="text/javascript" src="/js/app.js"></script -->
-	<!-- Facebook -->	
-	<script>
 
-	/** 
-	 * jQuery event broadcaster
-	 * @var string strEvent event name
-	 * @var array|object data Extra data passed to listeners
-	 */
-	jQuery.broadcast = function(strEvent, data) {
-		console.log("broadcast: " + strEvent);
-		jQuery(".jq-event-listener").each(function() {
-			// console.log(jQuery(this));
-			jQuery(this).triggerHandler(strEvent, data);
-		});
-		return false;
-	};
+    <!-- application -->
+    <script type="text/javascript" src="/js/app.js"></script>
 
 
+    <!-- Application -->
+    <link rel="stylesheet" href="/css/main.css" />
 
-	function checkLoginState() {
-		FB.getLoginStatus(function(response) {
-			console.log("checkLoginState");
-			console.log(response);
-			if (response.status === 'connected') {
-				console.log('Logged in');
-				jQuery.broadcast("fb:login");
-			} else {
-				console.log('Logged out');
-				jQuery.broadcast("fb:logout");
-			}
+    <!-- script type="text/javascript" src="/js/app.js"></script -->
+    <!-- Facebook -->   
+    <script>
 
-		});
-	}
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            console.log("checkLoginState");
+            console.log(response);
+            if (response.status === 'connected') {
+                console.log('Logged in');
+                jQuery.broadcast("fb:login");
+            } else {
+                console.log('Logged out');
+                jQuery.broadcast("fb:logout");
+            }
 
-	(function(d, s, id){
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {return;}
-		js = d.createElement(s); js.id = id;
-		js.src = "//connect.facebook.net/en_US/sdk.js";
-		// js.src = "//connect.facebook.net/en_US/debug.js";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
+        });
+    }
 
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        // js.src = "//connect.facebook.net/en_US/debug.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
-	jQuery(document).ready(
-		function() {
 
-			window.fbAsyncInit = function() {
-				FB.init({
-					appId      : '1611551282490800',
-					cookie     : false,
-					xfbml      : false,
-					version    : 'v2.6'
-				});
 
-	
-				FB.Event.subscribe('auth.login', function() { jQuery.broadcast("fb:login"); });
-				FB.Event.subscribe('auth.logout', function() { jQuery.broadcast("fb:logout"); });
-
-				checkLoginState();
-
-				/**
-				 * Facebook extend
-				 */
-
-				 // save acces tokens
-				 FB.access_token = {};
-
-				/**
-				 * Get user profile
-				 * @var function callback Function to call back 
-				 */
-				FB.getMe = function(callback) {
-					FB.api("/me", callback);
-				}
-
-				/**
-				 * Get pages the user can admin
-				 * @var function callback Function to call back 
-				 */
-				FB.getAccounts = function(callback) {
-					FB.api("/me/accounts", function(response) {
-						// console.log("/me/accounts");
-						// console.log(response);
-						//save page access token
-						for(i = 0; i < response.data.length; i++) {
-							FB.setAccessToken(response.data[i].id, response.data[i].access_token);
-						}
-						callback(response);
-					});
-				}
-
-				FB.setAccessToken = function(id, token) {
-					// console.log("setAccessToken:" + id + "," + token);
-					FB.access_token[String(id)] = token;
-				}
-				FB.getAccessToken = function(id) {
-					return FB.access_token[String(id)];
-				}
-
-				/**
-				 * Get get posts for user or page
-				 * @var string pageID ID of user (i.e. "me") or page
-				 * @var object params Parameters to includein the query
-				 * @var function callback Function to call back 
-				 */
-				FB.getPosts = function(pageID, params, callback) {
-					if (! jQuery.isPlainObject( params )) params = {};
-					body = jQuery.extend({
-								is_published: true,
-								access_token: FB.getAccessToken(pageID),
-								fields: "insights.metric(post_impressions_unique),created_time,story,message,link,type,object_id",
-								limit: 5
-							}, params);
-
-					// console.log("getPosts->body:");
-					// console.log(body);
-
-					action = (body.is_published === false) ? "promotable_posts" : "posts";					
-					FB.api(	"/" + pageID + "/" + action, 
-							body,
-							callback
-						);
-				}
-
-				/**
-				 * Paging for posts
-				 * @var string cursorLink Paging link as returned from Facebook
-				 * @var function callback Function to call back 
-				 */
-				FB.nextPrev = function(cursorLink, callback) {
-					jQuery.ajax({
-		                url: cursorLink,
-		                success: callback,
-		                cache: false,
-		                dataType: 'json'
-		            });
-				}
-
-				/**
-				 * Add post
-				 * @var string pageID ID of user (i.e. "me") or page
- 				 * @var object data Data to include in POST
-				 * @var function callback Function to call back 
-				 */
-				FB.addPost = function(pageID, data, callback) {
-					data.access_token = FB.getAccessToken(pageID);
-					FB.api("/" + pageID + "/feed", "POST", data, callback);
-				}
-
-
-				FB.updatePost = function(pageID, postID, params, callback) {
-					if (! jQuery.isPlainObject( params )) params = {};
-					body = jQuery.extend({
-								access_token: FB.getAccessToken(pageID)
-							}, params);
-
-					FB.api("/" + postID + "access_token=" + FB.getAccessToken(pageID), "POST", body, callback);
-				}
-
-				FB.deletePost = function(pageID, postID, callback) {
-					FB.api("/" + postID + "access_token=" + FB.getAccessToken(pageID), "DELETE", callback);
-				}
-
-
-			};
-
-
-			/* UI widgets */
-			// profile dropdown
-			jQuery('#profilesBtn').dropdown();
-
-			// date range slider
-			/*
-			var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
-			jQuery("#date_slider").dateRangeSlider({
-			    bounds: {min: new Date(2012, 0, 1), max: new Date(2012, 11, 31, 12, 59, 59)},
-			    defaultValues: {min: 0, max: 0},
-			    scales: [{
-			    	first: function(value){ return value; },
-			      	end: function(value) {return value; },
-			      	next: function(value){
-			        	var next = new Date(value);
-			        	return new Date(next.setMonth(value.getMonth() + 1));
-			      	},
-			      	label: function(value){
-			      	  	return months[value.getMonth()];
-			      	},
-			      	format: function(tickContainer, tickStart, tickEnd){
-			        	tickContainer.addClass("sliderTick");
-			      	}
-			    }]
-		    });
-			*/
-
-
-			/* turn off form submission */
-
-			/**
-			 * Hidden div for data loading and display
-			 */
-			jQuery("#api")
-				.on("fb:login", function(evt) {
-
-					// load profile menu entry template
-					Handlebars.loadTemplate('/_views/profile-entry.hbs')
-						.then(function(hbTemplate) {
-							// get user profile
-							FB.getMe(function(response) {
-								// console.log("getMe callback");
-								// console.log(response);
-
-								if (!response || response.error) {
-									// error
-								} else {
-									jQuery("[aria-labelledby=\"profilesBtn\"]").prepend(hbTemplate({id: response.id, name: response.name}));
-									
-									// load me
-									jQuery.broadcast("profile:load", {id: response.id, name: response.name});
-
-								}
-							});
-
-							// get pages
-							FB.getAccounts(function(response) {
-								if (!response || response.error) {
-									// error
-								} else {
-									// console.log("getAccounts callback");
-									// console.log(response);
-									for(i = 0; i < response.data.length; i++) {
-										// console.log(response.data[i].name);
-										jQuery("[aria-labelledby=\"profilesBtn\"]").append(hbTemplate({id: response.data[i].id, name: response.data[i].name}));
-									}
-									
-								}
-							});
-							
-						})
-						.catch(function() {
-							// error
-						});			
-		
-					return false;
-				})
-
-				.on("fb:logout", function(evt) {
-					FB.logout();
-					return false;
-				})
-
-				.on("profile:load", function(evt, data) {
-					// console.log("profile:load");
-					// console.log(data);
-					// set jumbotron
-					Handlebars.loadTemplate('/_views/profile-jumbo.hbs')
-						.then(function(hbTemplate) {
-							jQuery(".jumbotron .container").html(hbTemplate({
-														id: data.id,
-														name: data.name
-													}));
-						})
-						.catch(function() {
-						// error
-						});
-
-					// load posts
-					FB.getPosts(data.id, {is_published: true}, function(response) {
-						if (!response || response.error) {
-							// error
-						} else {
-							jQuery.broadcast("posts:load", response);
-						}
-					});
-
-					FB.getPosts(data.id, {is_published: false}, function(response) {
-						if (!response || response.error) {
-							// error
-						} else {
-							console.log("drafts:load");
-							console.log(response);
-							jQuery.broadcast("drafts:load", response);
-						}
-					});
-
-
-					// load drafts
-					return false;
-				})
-
-				.on("posts:paging", function(evt, cursorLink) {
-
-					FB.nextPrev(cursorLink, function(response) {
-						if (!response || response.error) {
-							// error
-						} else {
-							if (response.data.length > 0) {
-								jQuery.broadcast("posts:load", response);
-							} else {
-								jQuery.broadcast("posts:nomore", response);
-							}
-						}
-					});			
-					return false;
-
-				})
-				.on("post:add", function(evt, data) {
-					console.log("adding post");
-					console.log(data);
-					console.log(jQuery(".jumbotron .page").attr("fb-pageid"));
-
-					FB.addPost(jQuery(".jumbotron .page").attr("fb-pageid"), data, function(response) {
-						if (!response || response.error) {
-							// error
-						} else {
-							FB.getPosts(jQuery(".jumbotron .page").attr("fb-pageid"), {}, function(response) {
-								if (!response || response.error) {
-									// error
-								} else {
-									jQuery.broadcast("posts:load", response);
-									jQuery.broadcast("modal:hide", response);
-								}
-							});
-						}
-					});
-					return false;
-				})
-
-				/* add draft */
-				.on("draft:add", function(evt, data) {
-					console.log("adding draft");
-					console.log(data);
-					console.log(jQuery(".jumbotron .page").attr("fb-pageid"));
-					
-					data.published = false;
-					FB.addPost(jQuery(".jumbotron .page").attr("fb-pageid"), data, function(response) {
-						if (!response || response.error) {
-							// error
-						} else {
-							FB.getPosts(jQuery(".jumbotron .page").attr("fb-pageid"), {is_published: false}, function(response) {
-								if (!response || response.error) {
-									// error
-								} else {
-									jQuery.broadcast("drafts:load", response);
-									jQuery.broadcast("modal:hide", response);
-								}
-							});
-						}
-					});
-					return false;
-				})
-
-				/* update post */
-				.on("post:update", function(evt, data) {
-					postID = data.postID;
-					data.postID = null;
-					FB.updatePost(jQuery(".jumbotron .page").attr("fb-pageid"), postID, function(response) {
-					});
-				})
-
-				/* delete post */
-				.on("post:delete", function(evt, postID) {
-					console.log("post:delete");
-					console.log(postID);
-
-					FB.deletePost(jQuery(".jumbotron .page").attr("fb-pageid"), postID, function(response) {
-						if (response.success == true) {
-							jQuery(".post[data-fb-postid=\"" + postID + "\"]").fadeOut(300);
-							jQuery.broadcast("post:deleted", postID);
-						}
-					});
-				})
-
-				;
-
-
-			/* login/logout buttons */
-			jQuery('#fbLogin')
-				.on("fb:login", function() {
-					jQuery(this).hide();
-					return false;
-				})
-				.on("fb:logout", document, function() {
-					jQuery(this).show();
-					return false;
-				})
-				.on('click', function() {
-					FB.login(function() {}, {scope: "user_posts,manage_pages,read_insights,publish_actions,publish_pages"});
-					return false;
-				});
-
-			jQuery('#fbLogout')
-				.on("fb:login",function() {
-					jQuery(this).show();
-					return false;
-				})
-				.on("fb:logout",function() {
-					jQuery(this).hide();
-					return false;
-				})
-				.on('click', function() {
-					jQuery.broadcast("fb:logout");
-					return false;
-				});
-
-			/* dropdown */
-			jQuery("#profilesBtn")
-				.on("fb:login",function() {
-					jQuery(this).show();
-					return false;
-				})
-				.on("fb:logout",function() {
-					jQuery(this).hide();
-					jQuery("[aria-labelledby=\"profilesBtn\"] li[role!=\"separator\"]").remove();
-					return false;
-				});
-
-			/* dropdown event when selecting profile */
-			jQuery("[aria-labelledby=\"profilesBtn\"]")
-				.on("click", "li a", function() {
-					jQuery.broadcast("profile:load", {id: jQuery(this).attr("data-fb-pageid"), name: jQuery(".name", this).text()});
-					jQuery(this).parent().collapse('hide');
-					// return false;
-				});
-
-			/* loading posts */
-			jQuery("#posts_published")
-				.on("posts:load", function(evt, response) {
-					console.log("#posts_published->posts:load");
-					console.log(response);
-					jQuery("#posts_published .posts").empty();
-
-					// display posts
-					Handlebars.loadTemplate('/_views/post-entry.hbs')
-						.then(function(hbTemplate) {
-
-							// loop through posts
-							for(i = 0; i < response.data.length; i++) {
-
-								// loop through insights
-								views = null;
-								if (response.data[i].insights !== undefined) {
-									for(j = 0; j < response.data[i].insights.data.length; j++) {
-										if (response.data[i].insights.data[j].name == "post_impressions_unique") {
-											views = String(response.data[i].insights.data[j].values[0].value);
-											break;
-										}
-									}
-								}
-
-								jQuery("#posts_published .posts").append(hbTemplate({
-																	id: response.data[i].id,
-																	date: response.data[i].created_time,
-																	message: response.data[i].message,
-																	link: response.data[i].link,
-																	story: response.data[i].story,
-																	type: response.data[i].type,
-																	views: views
-																}));
-										
-							}		
-						})
-						.catch(function() {
-							// error
-						});
-
-					// set prev/next
-					jQuery("#posts_published .prev").attr("data-fb-cursor", response.paging.previous);
-					jQuery("#posts_published .next").attr("data-fb-cursor", response.paging.next);
-					return false;
-				})
-				.on("post:load", function(evt, response) {
-					console.log("post:load");
-					console.log(response);
-					return false;
-				});
-
-			/* loading drafts */
-			jQuery("#posts_drafts")
-				.on("drafts:load", function(evt, response) {
-					// console.log("#posts_drafts->drafts:load");
-					// console.log(response);
-
-					jQuery(".posts", this).empty();
-					Handlebars.loadTemplate('/_views/post-entry.hbs')
-						.then(function(hbTemplate) {
-
-							// loop through posts
-							for(i = 0; i < response.data.length; i++) {
-								// loop through insights
-								views = null;
-								if (response.data[i].insights !== undefined) {
-									for(j = 0; j < response.data[i].insights.data.length; j++) {
-										if (response.data[i].insights.data[j].name == "post_impressions_unique") {
-											views = String(response.data[i].insights.data[j].values[0].value);
-											break;
-										}
-									}
-								}
-
-								jQuery("#posts_drafts .posts").append(hbTemplate({
-																	id: response.data[i].id,
-																	date: response.data[i].created_time,
-																	message: response.data[i].message,
-																	link: response.data[i].link,
-																	story: response.data[i].story,
-																	views: views,
-																	type: response.data[i].type,
-																	is_draft: true
-																}));
-										
-							}		
-						})
-						.catch(function() {
-							// error
-						});
-
-					// set prev/next
-					jQuery(".prev", this).attr("data-fb-cursor", response.paging.previous);
-					jQuery(".next", this).attr("data-fb-cursor", response.paging.next);
-					return false;
-
-				});
-			
-			/* delete post */
-			jQuery(".posts")
-				.on("click", "button.delete", function(evt, response) {
-					console.log("delete post");
-					console.log(jQuery(this).closest(".panel").attr("data-fb-postid"));
-
-					jQuery.broadcast("post:delete", jQuery(this).closest(".panel").attr("data-fb-postid"));
-				})
-
-				/* remove post after deletion */
-				.on("post:deleted", function(evt, postID) {
-					console.log("post:deleted");
-					console.log(postID);
-
-					FB.deletePost(postID, function(response) {
-						if (response.success == true) jQuery.broadcast("post:deleted", postID);
-					});
-				});
-
-
-			/* paging buttons */
-			jQuery(".prev,.next")
-				.on("click", function() {
-					console.log("prevnext");
-					jQuery.broadcast("posts:paging", jQuery(this).attr("data-fb-cursor"));
-					return false;
-				});
-
-
-			/* add post */
-			jQuery("#post_add")
-				.on("click", function(evt) {
-					jQuery.broadcast("modal:show", {});
-					return false;
-				});
-
-			/* post add modal */
-			jQuery(".modal-overlay")
-				.on("modal:show", function(evt) {
-					jQuery(this).fadeIn(300);
-					return false;
-				})
-				.on("modal:hide posts:load", function(evt) {
-					jQuery(this).fadeOut(300);
-					return false;
-				})
-				.on("click", ".submit", function(evt) {
-					// console.log(jQuery(this));
-					jQuery.broadcast("post:add", {
-						message: jQuery(".modal-overlay textarea[name=\"message\"]").val()
-					});
-					return false;
-				})
-				.on("click", ".save", function(evt) {
-					// console.log(jQuery(this));
-					jQuery.broadcast("draft:add", {
-						message: jQuery(".modal-overlay textarea[name=\"message\"]").val()
-					});
-					return false;
-				})
-				.on("click", ".cancel", function(evt) {
-					jQuery.broadcast("modal:hide", {});
-					return false;
-				});
-
-		});
-	</script>
+    </script>
 
 
 </head>
 <body>
-	<!-- nav -->
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-brand navbar-left">LibreFaciem</div>
+    <!-- nav -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-brand navbar-left">LibreFaciem</div>
 
 
-			<div class="navbar-btn navbar-right">
-				<button class="btn btn-primary jq-event-listener" id="fbLogin">Login</button>
-				<button class="btn btn-danger jq-event-listener" id="fbLogout">Logout</button>
-			</div>
+            <div class="navbar-btn navbar-right">
+                <button class="btn btn-primary jq-event-listener" id="fbLogin">Login</button>
+                <button class="btn btn-danger jq-event-listener" id="fbLogout">Logout</button>
+            </div>
 
-			<div class="navbar-btn navbar-right" id="#profileSelector">
-				<div class="dropdown">
-					<button class="btn btn-default dropdown-toggle jq-event-listener" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="profilesBtn">
-						Profiles
-						<span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="profilesBtn">
-						<li role="separator" class="divider"></li>
-					</ul>
-				</div>
-			</div>
+            <div class="navbar-btn navbar-right" id="#profileSelector">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle jq-event-listener" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="profilesBtn">
+                        Profiles
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="profilesBtn">
+                        <li role="separator" class="divider"></li>
+                    </ul>
+                </div>
+            </div>
 
-		</div>
-	</nav>
-	<!-- /nav -->
+        </div>
+    </nav>
+    <!-- /nav -->
 
-	<div class="jumbotron">
-		<div class="container">
-			<h1>LibreFaciem</h1>
-			<p>The Facebook post management system for your personal feed or a business page.</p>
-		</div>
-	</div>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>LibreFaciem</h1>
+            <p>The Facebook post management system for your personal feed or a business page.</p>
+        </div>
+    </div>
 
-	<div class="container">
-		<div class="row">
-			<!-- published -->
-			<div class="col-xs-12 col-md-6">
-				<h2>Published posts <button class="btn btn-success btn-xs" id="post_add">add <span class="glyphicon glyphicon-plus"></span></button></h2>
-	
-				<div id="posts_published" class="jq-event-listener">
-					<div style="margin-bottom: 20px;">
-						<button class="btn btn-default prev">previous <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
-					</div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- published -->
+            <div class="col-xs-12 col-md-6">
+                <h2>Published posts <button class="btn btn-success btn-xs" id="post_add">add <span class="glyphicon glyphicon-plus"></span></button></h2>
+    
+                <div id="posts_published" class="jq-event-listener">
+                    <div style="margin-bottom: 20px;">
+                        <button class="btn btn-default prev">previous <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
+                    </div>
 
-					<div class="posts">
-					</div>
+                    <div class="posts">
+                    </div>
 
-					<div>
-						<button class="btn btn-default next">next <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
-					</div>
-				</div>
-			</div>
+                    <div>
+                        <button class="btn btn-default next">next <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
 
-			<!-- drafts -->
-			<div class="col-xs-12 col-md-6">
-				<h2>Drafts</h2>
-				<div id="posts_drafts" class="jq-event-listener">
-					<div style="margin-bottom: 20px;">
-						<button class="btn btn-default prev">previous <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
-					</div>
+            <!-- drafts -->
+            <div class="col-xs-12 col-md-6">
+                <h2>Drafts</h2>
+                <div id="posts_drafts" class="jq-event-listener">
+                    <div style="margin-bottom: 20px;">
+                        <button class="btn btn-default prev">previous <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
+                    </div>
 
-					<div class="posts">
-					</div>
+                    <div class="posts">
+                    </div>
 
-					<div>
-						<button class="btn btn-default next">next <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
-					</div>
-				</div>
-			</div>
-		</row>
-	</div>
+                    <div>
+                        <button class="btn btn-default next">next <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </row>
+    </div>
 
-	<!-- modal -->
-	<div class="modal-overlay jq-event-listener">
-		<div class="container">
-			<div class="panel panel-success">
-				<div class="panel-heading">Add Post</div>
-				<div class="panel-body">
-					<div class="form-group">
-	    				<label for="inputEmail3" class="col-sm-2 control-label">Message</label>
-	    				<textarea class="form-control" rows="3" name="message"></textarea>
-					</div>
-					<p class="text-right">
-						<button class="btn btn-primary btn-sm submit">post</button>
-						<button class="btn btn-warning btn-sm save">save draft</button>
-						<button class="btn btn-danger btn-sm cancel">cancel</button>
-					</p>
-			</div>
-		</div>
-	</div>
+    <!-- modal -->
+    <div class="modal-overlay jq-event-listener">
+        <div class="container">
+            <div class="panel panel-success">
+                <div class="panel-heading">Add Post</div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Message</label>
+                        <textarea class="form-control" rows="3" name="message"></textarea>
+                    </div>
+                    <p class="text-right">
+                        <button class="btn btn-primary btn-sm submit">post</button>
+                        <button class="btn btn-warning btn-sm save">save draft</button>
+                        <button class="btn btn-danger btn-sm cancel">cancel</button>
+                    </p>
+            </div>
+        </div>
+    </div>
 
-	<div class="jq-event-listener" id="api" />
-	</body>
-	</html>
+    <div class="jq-event-listener" id="api" />
+    </body>
+    </html>
