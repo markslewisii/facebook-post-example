@@ -7,7 +7,7 @@
 			</div>
 		</div>
 		<div>
-			{{formatdate date}} 
+			{{formatdate created_time}} 
 		</div>
 	</div>
 	<div class="panel-body">
@@ -23,7 +23,7 @@
 
 		<div style="text-align: right;">
 		{{#if link}}
-			<button class="btn btn-default btn-xs" onclick="window.open('{{link}}');">view »</button><br />
+			<button class="btn btn-default btn-xs" onclick="window.open('{{link}}');">view {{name}} »</button><br />
 		{{/if}}
 		</div>
 	</div>
