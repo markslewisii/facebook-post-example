@@ -109,7 +109,12 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container prelogin jq-event-listener">
+        <p>
+            Please login to your Facebook account to begin.
+        </p>
+    </div>
+    <div class="container postcols jq-event-listener">
         <div class="row">
             <!-- published -->
             <div class="col-xs-12 col-md-6">
@@ -120,7 +125,7 @@
                         <button class="btn btn-default prev">previous <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
                     </div>
 
-                    <div class="posts">
+                    <div class="posts jq-event-listener">
                     </div>
 
                     <div>
@@ -137,7 +142,7 @@
                         <button class="btn btn-default prev">previous <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
                     </div>
 
-                    <div class="posts">
+                    <div class="posts  jq-event-listener">
                     </div>
 
                     <div>
@@ -156,8 +161,9 @@
 
                     <div class="pull-right">
                         <div class="btn-group" role="group">
-                              <button type="button" for="status" class="btn btn-primary btn-xs">status</button>
+                              <button type="button" for="status" class="btn btn-default btn-primary btn-xs">status</button>
                               <button type="button" for="link" class="btn btn-default btn-xs">link</button>
+                              <button type="button" for="photo" class="btn btn-default btn-xs">photo</button>
                         </div>
                     </div>
 
@@ -167,12 +173,17 @@
                 </div>
                 <div class="panel-body">
                         <input type="hidden" name="type" value="status" />
+                    <div fb-form-type="status">
                         <div class="form-group">
                             <label for="mesage" class="col-sm-2 control-label">Message</label>
                             <textarea class="form-control" rows="3" name="message"></textarea>
                         </div>
-
+                    </div>
                     <div fb-form-type="link">
+                        <div class="form-group">
+                            <label for="mesage" class="col-sm-2 control-label">Message</label>
+                            <textarea class="form-control" rows="3" name="message"></textarea>
+                        </div>
                         <div class="form-group">
                             <label for="link" class="col-sm-2 control-label">Link</label>
                             <input type="text" class="form-control" name="link" />
@@ -193,7 +204,21 @@
                             <label for="description" class="col-sm-2 control-label">Description</label>
                             <textarea class="form-control" rows="3" name="description"></textarea>
                         </div>
-                   </div>
+                    </div>
+                    <div fb-form-type="photo">
+                        <div class="form-group">
+                            <label for="mesage" class="col-sm-2 control-label">Message</label>
+                            <textarea class="form-control" rows="3" name="message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="link" class="col-sm-2 control-label">Photo</label>
+                            <input type="file" class="form-control" name="source" />
+                        </div>
+                        <div class="form-group">
+                            <label for="caption" class="col-sm-2 control-label">Caption</label>
+                            <input type="text" class="form-control" name="caption" />
+                        </div>
+                    </div>
                     <p class="text-right operation">
                         <button class="btn btn-primary btn-sm submit">post</button>
                         <button class="btn btn-warning btn-sm save">save draft</button>

@@ -21,11 +21,30 @@
 		{{message}}
 		</p>
 
-		<div style="text-align: right;">
-		{{#if link}}
-			<button class="btn btn-default btn-xs" onclick="window.open('{{link}}');">view {{name}} »</button><br />
+
+		{{#if picture}}
+		<div>
+			<img src="{{picture}}" class="thumbnail" />
+			{{#if caption}}
+			<div class="caption">
+				{{caption}}
+			</div>
+			{{/if}}
+		</div>
 		{{/if}}
+
+	</div>
+
+	<div class="panel-footer">
+		{{#if link}}
+		<div class="pull-right">
+			<button class="btn btn-default btn-xs" onclick="window.open('{{link}}');">view {{name}} »</button>
+		</div>
+		{{/if}}
+
+		<div>
+		{{#if views}}views: <span class="post-views">{{views}}</span>{{/if}}&nbsp;
 		</div>
 	</div>
-	{{#if views}}<div class="panel-footer">views: <span class="post-views">{{views}}</span></div>{{/if}}
+
 </div>

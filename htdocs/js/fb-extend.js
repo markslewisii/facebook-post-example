@@ -70,7 +70,7 @@ window.fbAsyncInit = function() {
         return ((id == FB.getMyID()) || (id == "me"));
     }
 
-   FB.setCurrentPageID  = function(id) {
+    FB.setCurrentPageID  = function(id) {
         FB.current_pageID = id;
     }
     FB.getCurrentPageID  = function(id) {
@@ -142,8 +142,29 @@ window.fbAsyncInit = function() {
      * @var function callback Function to call back 
      */
     FB.addPost = function(pageID, data, callback) {
+        console.log("FB.addPost");
+        console.log(data);
         data.access_token = FB.getAccessToken(pageID);
-        FB.api("/" + pageID + "/feed", "POST", data, callback);
+
+        if (data.type == "photo") {
+            console.log("calling FB.addPhoto");
+            FB.addPhoto(
+                data,
+
+                function (response) {
+                    delete data.source;
+                    delete data.url;
+                    data.object_attachment = response.id;
+
+                    console.log(response);
+                    FB.api("/" + pageID + "/feed", "POST", data, callback);
+                }
+
+            );
+            
+        } else {
+            FB.api("/" + pageID + "/feed", "POST", data, callback);
+        }
     }
 
 
@@ -163,5 +184,44 @@ window.fbAsyncInit = function() {
         FB.api("/" + postID + "?access_token=" + FB.getAccessToken(pageID), "DELETE", callback);
     }
 
+
+    FB.addPhoto = function(data, callback) {
+        console.log("addPhoto");
+        console.log(jQuery(data.source)[0].files[0]);
+
+
+        var formData = new FormData();
+        formData.append("access_token", FB.getAccessToken(FB.getCurrentPageID()));
+        formData.append("caption", data.caption);
+        formData.append("no_story", true);
+        formData.append("source", jQuery(data.source)[0].files[0]);
+
+
+        jQuery.ajax({
+            url: "https://graph.facebook.com/" + FB.getCurrentPageID() + "/photos",
+            data: formData,
+            success: callback,
+            type: "POST",
+            cache: false,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+
+        });
+
+        // FB.api("/" + FB.getCurrentPageID() + "/photos", formData, "POST", callback);
+
+        /*
+        var reader = new FileReader();
+        reader.onload = function() {
+            var photoData = jQuery.extend({}, data, {source: reader.result});
+            photoData.access_token = FB.getAccessToken(FB.getCurrentPageID());
+            console.log("reader.onload");
+            console.log(photoData);
+            FB.api("/" + FB.getCurrentPageID() + "/photos", photoData, "POST", callback);
+        }
+        reader.readAsBinaryString(jQuery(data.source)[0].files[0]);
+        */
+    }
 
 };

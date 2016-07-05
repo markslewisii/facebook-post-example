@@ -292,8 +292,14 @@ jQuery(document).ready(function() {
             FB.deletePost(FB.getCurrentPageID(), postID, function(response) {
                 if (response.success == true) {
                     console.log("fadeOut:" + postID);
-                    jQuery(".posts div[data-fb-postid=\"" + postID + "\"]").fadeOut(300);
-                    jQuery.broadcast("post:deleted", postID);
+                    jQuery(".posts div[data-fb-postid=\"" + postID + "\"]")
+                        .fadeOut(300,
+                            function() {
+                                jQuery(this).remove();
+                                jQuery.broadcast("post:deleted", postID);
+                            }
+                        );
+                    
                 }
             });
         })
@@ -313,8 +319,15 @@ jQuery(document).ready(function() {
                 // console.log(response);
                 if (response.success == true) {
                     console.log("fadeout:" + postID);
-                    jQuery(".posts div[data-fb-postid=\"" + postID + "\"]").fadeOut(300);
-                    jQuery.broadcast("post:published", postID);
+                    jQuery(".posts div[data-fb-postid=\"" + postID + "\"]")
+                        .fadeOut(300,
+                            function() {
+                                jQuery(this).remove();
+                                jQuery.broadcast("post:published", postID);
+                            }
+                        );
+
+                    
                 }
             });
 
@@ -431,6 +444,55 @@ jQuery(document).ready(function() {
             jQuery("[aria-labelledby=\"profilesBtn\"] li[role!=\"separator\"]").remove();
             return false;
         });
+
+    /**
+     * Instructional body shown prior to login
+     */
+    jQuery(".prelogin")
+        /**
+         * User logged in
+         * Hide
+         */
+        .on("fb:login",function() {
+            jQuery(this).hide();
+            return false;
+        })
+
+        /**
+         * User logged out
+         * Show
+         */
+        .on("fb:logout",function() {
+            jQuery(this).show();
+            return false;
+        })
+        ;
+
+
+
+    /**
+     * Post columns loaded after login
+     */
+    jQuery(".postcols")
+        /**
+         * User logged in
+         * Show
+         */
+        .on("fb:login",function() {
+            console.log("show postcols");
+            jQuery(this).show();
+            return false;
+        })
+
+        /**
+         * User logged out
+         * Hide
+         */
+        .on("fb:logout",function() {
+            jQuery(this).hide();
+            return false;
+        })
+        ;
 
     /**
      * Selection event for list of profile/pages in menu
@@ -664,10 +726,26 @@ jQuery(document).ready(function() {
         })
 
         /*
-         * A post has been delete
+         * A post has been deleted or published (hence delete from drafts)
          * @todo
          */
-        .on("post:deleted", function(evt, postID) {
+        .on("post:deleted post:published", function(evt, postID) {
+            console.log(jQuery(this));
+            console.log(jQuery(".panel", this).length);
+
+            if ((jQuery(".panel", this).length == 0) && jQuery(this).is(":visible")) { // no more posts in column
+                if (jQuery(this).prev().children(".prev").is(":visible")) {
+                    jQuery(this).prev().children(".prev").click();
+
+                } else if(jQuery(this).next().children(".next").is(":visible")) {
+                    jQuery(this).next().children(".next").click();
+
+                } else {
+                    if (jQuery(this).parent().prop("id") == "posts_drafts") {
+                        jQuery.broadcast("drafts:hasnot");
+                    }
+                }
+            }
 
         })
 
@@ -771,7 +849,7 @@ jQuery(document).ready(function() {
             console.log(jQuery(this));
 
             jQuery("input, textarea", this).val("");
-            jQuery("button", this).prop("   ", false);
+            jQuery("button", this).prop("disabled", false);
             jQuery("input[name=\"type\"]", this).prop("value", "status");
 
             jQuery("button[for]").removeClass("btn-primary");
@@ -817,11 +895,11 @@ jQuery(document).ready(function() {
         .on("click", ".submit", function(evt) {
             // console.log(jQuery(this));
 
-            jQuery(".modal-overlay .operation button", this).prop("disabled", true);
+            jQuery(".modal-overlay .operation button").prop("disabled", true);
 
             var postObj = {};
-            jQuery("[fb-form-type]:visible input, [fb-form-type]:visible textarea").each(function() {
-                postObj[jQuery(this).attr("name")] = jQuery(this).val();
+            jQuery("[fb-form-type]:visible input, [fb-form-type]:visible textarea, input[name=\"type\"]").each(function() {
+                postObj[jQuery(this).attr("name")] = (jQuery(this).attr("name") == "source") ? jQuery(this) : jQuery(this).val();
             });
 
             jQuery.broadcast("post:add", postObj);
@@ -835,12 +913,14 @@ jQuery(document).ready(function() {
          * @broadcast draft:add
          */
         .on("click", ".save", function(evt) {
-            jQuery(".modal-overlay .operation button", this).prop("disabled", true);
+            jQuery(".modal-overlay .operation button").prop("disabled", true);
 
             var postObj = {};
-            jQuery("[fb-form-type]:visible input, [fb-form-type]:visible textarea").each(function() {
-                postObj[jQuery(this).attr("name")] = jQuery(this).val();
+            jQuery("[fb-form-type]:visible input, [fb-form-type]:visible textarea, input[name=\"type\"]").each(function() {
+                postObj[jQuery(this).attr("name")] = (jQuery(this).attr("name") == "source") ? jQuery(this) : jQuery(this).val();
             });
+
+            console.log(postObj);
 
             jQuery.broadcast("draft:add", postObj);
 
