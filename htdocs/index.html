@@ -98,6 +98,11 @@
                 </div>
             </div>
 
+            <div class="navbar-btn navbar-right">
+                <img src="/images/loading.svg" width="35" height="35" class="loading jq-event-listener" />
+            </div>
+
+
         </div>
     </nav>
     <!-- /nav -->
@@ -164,6 +169,7 @@
                               <button type="button" for="status" class="btn btn-default btn-primary btn-xs">status</button>
                               <button type="button" for="link" class="btn btn-default btn-xs">link</button>
                               <button type="button" for="photo" class="btn btn-default btn-xs">photo</button>
+                              <button type="button" for="video" class="btn btn-default btn-xs">video</button>
                         </div>
                     </div>
 
@@ -207,10 +213,6 @@
                     </div>
                     <div fb-form-type="photo">
                         <div class="form-group">
-                            <label for="mesage" class="col-sm-2 control-label">Message</label>
-                            <textarea class="form-control" rows="3" name="message"></textarea>
-                        </div>
-                        <div class="form-group">
                             <label for="link" class="col-sm-2 control-label">Photo</label>
                             <input type="file" class="form-control" name="source" />
                         </div>
@@ -219,7 +221,22 @@
                             <input type="text" class="form-control" name="caption" />
                         </div>
                     </div>
+                    <div fb-form-type="video">
+                        <div class="form-group">
+                            <label for="link" class="col-sm-2 control-label">Video</label>
+                            <input type="file" class="form-control" name="source" />
+                        </div>
+                        <div class="form-group">
+                            <label for="caption" class="col-sm-2 control-label">Title</label>
+                            <input type="text" class="form-control" name="title" />
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Description</label>
+                            <textarea class="form-control" rows="3" name="description"></textarea>
+                        </div>
+                    </div>
                     <p class="text-right operation">
+                        <img src="/images/loading.svg" width="30" height="30" class="loading jq-event-listener" />
                         <button class="btn btn-primary btn-sm submit">post</button>
                         <button class="btn btn-warning btn-sm save">save draft</button>
                         <button class="btn btn-danger btn-sm cancel">cancel</button>

@@ -150,18 +150,40 @@ window.fbAsyncInit = function() {
             console.log("calling FB.addPhoto");
             FB.addPhoto(
                 data,
-
+                callback
+                /*
                 function (response) {
                     delete data.source;
                     delete data.url;
+                    delete data.caption;
                     data.object_attachment = response.id;
 
-                    console.log(response);
+                    console.log(data);
                     FB.api("/" + pageID + "/feed", "POST", data, callback);
                 }
+                */
 
             );
-            
+
+        } else if (data.type == "video") {
+            console.log("calling FB.addVideo");
+            FB.addVideo(
+                data,
+                callback
+                /*
+                function (response) {
+                    delete data.source;
+                    delete data.url;
+                    delete data.caption;
+                    data.object_attachment = response.id;
+
+                    console.log(data);
+                    FB.api("/" + pageID + "/feed", "POST", data, callback);
+                }
+                */
+
+            );
+
         } else {
             FB.api("/" + pageID + "/feed", "POST", data, callback);
         }
@@ -193,7 +215,8 @@ window.fbAsyncInit = function() {
         var formData = new FormData();
         formData.append("access_token", FB.getAccessToken(FB.getCurrentPageID()));
         formData.append("caption", data.caption);
-        formData.append("no_story", true);
+        // formData.append("no_story", true);
+        if (data.published) formData.append("published", data.published);
         formData.append("source", jQuery(data.source)[0].files[0]);
 
 
@@ -223,5 +246,32 @@ window.fbAsyncInit = function() {
         reader.readAsBinaryString(jQuery(data.source)[0].files[0]);
         */
     }
+
+   FB.addVideo = function(data, callback) {
+        console.log("addVideo");
+        console.log(jQuery(data.source)[0].files[0]);
+
+
+        var formData = new FormData();
+        formData.append("access_token", FB.getAccessToken(FB.getCurrentPageID()));
+        formData.append("title", data.title);
+        if (data.published) formData.append("published", data.published);
+        formData.append("source", jQuery(data.source)[0].files[0]);
+
+
+        jQuery.ajax({
+            url: "https://graph.facebook.com/" + FB.getCurrentPageID() + "/videos",
+            data: formData,
+            success: callback,
+            type: "POST",
+            cache: false,
+            dataType: 'json',
+            contentType: false,
+            processData: false
+
+        });
+
+    }
+
 
 };

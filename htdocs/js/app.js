@@ -6,7 +6,7 @@ jQuery(document).ready(function() {
     /* UI widgets */
     // profile dropdown
     jQuery('#profilesBtn').dropdown();
-
+    jQuery(".loading").hide();
 
 
     /* turn off form submission */
@@ -719,8 +719,8 @@ jQuery(document).ready(function() {
          */
         .on("click", "button.delete", function(evt) {
             console.log("delete post");
-            console.log(jQuery(this).closest(".panel").attr("data-fb-postid"));
 
+            jQuery(this).parents(".panel").find(".loading").show();
             jQuery.broadcast("post:delete", jQuery(this).closest(".panel").attr("data-fb-postid"));
             return false;
         })
@@ -758,6 +758,8 @@ jQuery(document).ready(function() {
         .on("click", "button.publish", function(evt, response) {
             console.log("publish post");
             console.log(jQuery(this).closest(".panel").attr("data-fb-postid"));
+
+            jQuery(this).parents(".panel").find(".loading").show();
 
             jQuery.broadcast("post:publish", jQuery(this).closest(".panel").attr("data-fb-postid"));
             return false;
@@ -939,4 +941,20 @@ jQuery(document).ready(function() {
 
 
         ;
+
+    /**
+     * Loading indicators
+     */
+    jQuery(".loading")
+
+        .on("post:add draft:add posts:load drafts:load", function(evt) {
+            jQuery(this).show();
+        })
+
+        .on("posts:loaded drafts:loaded post:deleted draft:deleted modal:reset ", function(evt) {
+            jQuery(this).hide();
+        })
+    ;
+
+
 });

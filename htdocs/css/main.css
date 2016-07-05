@@ -3,6 +3,9 @@
 
 }
 
+.loading {
+    display: none;
+}
 
 .modal-overlay {
     position: fixed;
