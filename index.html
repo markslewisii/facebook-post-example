@@ -1,0 +1,250 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LibreFaciem</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
+    <!-- link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-responsive.css" / -->
+
+    <!-- jQuery -->
+    <link rel="stylesheet" href="js/jquery-ui-1.11.4/jquery-ui.min.css" />
+    <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+    <script src="js/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+    <script src="js/jquery-broadcast.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+
+
+    <!-- Range Slider -->
+    <!-- link rel="stylesheet" href="/js/jQRangeSlider/css/iThing.css" />
+    <link rel="stylesheet" href="/js/jQRangeSlider-5.7.2/css/iThing.css" type="text/css" />
+    <script src="/js/jQRangeSlider-5.7.2/jQAllRangeSliders-min.js"></script -->
+
+    <!-- Handlebars -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.js"></script>
+    <script type="text/javascript" src="js/handlebars-loadtemplate.js"></script>
+
+    <!-- Facebook extension -->
+    <script type="text/javascript" src="js/fb-extend.js"></script>
+
+
+    <!-- application -->
+    <script type="text/javascript" src="js/app.js"></script>
+
+
+    <!-- Application -->
+    <link rel="stylesheet" href="css/main.css" />
+
+    <!-- script type="text/javascript" src="/js/app.js"></script -->
+    <!-- Facebook -->   
+    <script>
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            console.log("checkLoginState");
+            console.log(response);
+            if (response.status === 'connected') {
+                console.log('Logged in');
+                jQuery.broadcast("fb:login");
+            } else {
+                console.log('Logged out');
+                jQuery.broadcast("fb:logout");
+            }
+
+        });
+    }
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        // js.src = "//connect.facebook.net/en_US/debug.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+
+
+    </script>
+
+
+</head>
+<body>
+    <!-- nav -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-brand navbar-left">LibreFaciem</div>
+
+
+            <div class="navbar-btn navbar-right">
+                <button class="btn btn-primary jq-event-listener" id="fbLogin">Login</button>
+                <button class="btn btn-danger jq-event-listener" id="fbLogout">Logout</button>
+            </div>
+
+            <div class="navbar-btn navbar-right" id="#profileSelector">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle jq-event-listener" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" id="profilesBtn">
+                        Profiles
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="profilesBtn">
+                        <li role="separator" class="divider"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="navbar-btn navbar-right">
+                <img src="/images/loading.svg" width="35" height="35" class="loading jq-event-listener" />
+            </div>
+
+
+        </div>
+    </nav>
+    <!-- /nav -->
+
+    <div class="jumbotron">
+        <div class="container">
+            <h1>LibreFaciem</h1>
+            <p>The Facebook post management system for your personal feed or a business page.</p>
+        </div>
+    </div>
+
+    <div class="container prelogin jq-event-listener">
+        <p>
+            Please login to your Facebook account to begin.
+        </p>
+    </div>
+    <div class="container postcols jq-event-listener">
+        <div class="row">
+            <!-- published -->
+            <div class="col-xs-12 col-md-6">
+                <h2>Published posts <button class="btn btn-success btn-xs" id="post_add">add <span class="glyphicon glyphicon-plus"></span></button></h2>
+    
+                <div id="posts_published" class="jq-event-listener">
+                    <div style="margin-bottom: 20px;">
+                        <button class="btn btn-default prev">previous <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
+                    </div>
+
+                    <div class="posts jq-event-listener">
+                    </div>
+
+                    <div>
+                        <button class="btn btn-default next">next <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- drafts -->
+            <div class="col-xs-12 col-md-6">
+                <h2>Drafts</h2>
+                <div id="posts_drafts" class="jq-event-listener">
+                    <div style="margin-bottom: 20px;">
+                        <button class="btn btn-default prev">previous <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
+                    </div>
+
+                    <div class="posts  jq-event-listener">
+                    </div>
+
+                    <div>
+                        <button class="btn btn-default next">next <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </row>
+    </div>
+
+    <!-- modal -->
+    <div class="modal-overlay jq-event-listener">
+        <div class="container">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+
+                    <div class="pull-right">
+                        <div class="btn-group" role="group">
+                              <button type="button" for="status" class="btn btn-default btn-primary btn-xs">status</button>
+                              <button type="button" for="link" class="btn btn-default btn-xs">link</button>
+                              <button type="button" for="photo" class="btn btn-default btn-xs">photo</button>
+                              <button type="button" for="video" class="btn btn-default btn-xs">video</button>
+                        </div>
+                    </div>
+
+
+
+                    <div>Add Post</div>
+                </div>
+                <div class="panel-body">
+                        <input type="hidden" name="type" value="status" />
+                    <div fb-form-type="status">
+                        <div class="form-group">
+                            <label for="mesage" class="col-sm-2 control-label">Message</label>
+                            <textarea class="form-control" rows="3" name="message"></textarea>
+                        </div>
+                    </div>
+                    <div fb-form-type="link">
+                        <div class="form-group">
+                            <label for="mesage" class="col-sm-2 control-label">Message</label>
+                            <textarea class="form-control" rows="3" name="message"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="link" class="col-sm-2 control-label">Link</label>
+                            <input type="text" class="form-control" name="link" />
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="col-sm-2 control-label">Name</label>
+                            <input type="text" class="form-control" name="name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="picture" class="col-sm-2 control-label">Picture URL</label>
+                            <input type="text" class="form-control" name="picture" />
+                        </div>
+                        <div class="form-group">
+                            <label for="caption" class="col-sm-2 control-label">Picture Caption</label>
+                            <input type="text" class="form-control" name="caption" />
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Description</label>
+                            <textarea class="form-control" rows="3" name="description"></textarea>
+                        </div>
+                    </div>
+                    <div fb-form-type="photo">
+                        <div class="form-group">
+                            <label for="link" class="col-sm-2 control-label">Photo</label>
+                            <input type="file" class="form-control" name="source" />
+                        </div>
+                        <div class="form-group">
+                            <label for="caption" class="col-sm-2 control-label">Caption</label>
+                            <input type="text" class="form-control" name="caption" />
+                        </div>
+                    </div>
+                    <div fb-form-type="video">
+                        <div class="form-group">
+                            <label for="link" class="col-sm-2 control-label">Video</label>
+                            <input type="file" class="form-control" name="source" />
+                        </div>
+                        <div class="form-group">
+                            <label for="caption" class="col-sm-2 control-label">Title</label>
+                            <input type="text" class="form-control" name="title" />
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-sm-2 control-label">Description</label>
+                            <textarea class="form-control" rows="3" name="description"></textarea>
+                        </div>
+                    </div>
+                    <p class="text-right operation">
+                        <img src="/images/loading.svg" width="30" height="30" class="loading jq-event-listener" />
+                        <button class="btn btn-primary btn-sm submit">post</button>
+                        <button class="btn btn-warning btn-sm save">save draft</button>
+                        <button class="btn btn-danger btn-sm cancel">cancel</button>
+                    </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="jq-event-listener" id="api" />
+    </body>
+    </html>
