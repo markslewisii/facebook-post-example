@@ -91,7 +91,7 @@ jQuery(document).ready(function() {
             // set jumbotron
 
 
-            Handlebars.loadTemplate('/_views/profile-jumbo.hbs')
+            Handlebars.loadTemplate('_views/profile-jumbo.hbs')
                 .then(function(hbTemplate) {
                     jQuery(".jumbotron .container").html(hbTemplate({
                                                 id: data.id,
@@ -523,7 +523,7 @@ jQuery(document).ready(function() {
             jQuery("#posts_published .posts").empty();
 
             // display posts
-            Handlebars.loadTemplate('/_views/post-entry.hbs')
+            Handlebars.loadTemplate('_views/post-entry.hbs')
                 .then(function(hbTemplate) {
 
                     // loop through posts
@@ -632,7 +632,7 @@ jQuery(document).ready(function() {
                 jQuery.broadcast("drafts:has");
             }
 
-            Handlebars.loadTemplate('/_views/post-entry.hbs')
+            Handlebars.loadTemplate('_views/post-entry.hbs')
                 .then(function(hbTemplate) {
 
                     // loop through posts
