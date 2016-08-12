@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
         .on("fb:login", function(evt) {
 
             // load profile menu entry template
-            Handlebars.loadTemplate('/_views/profile-entry.hbs')
+            Handlebars.loadTemplate('_views/profile-entry.hbs')
                 .then(function(hbTemplate) {
                     // get user profile
                     FB.getMe(function(response) {
