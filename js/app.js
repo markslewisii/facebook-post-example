@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
         .on("fb:login", function(evt) {
 
             // load profile menu entry template
-            Handlebars.loadTemplate('/facebook-post-example/_views/profile-entry.html')
+            Handlebars.loadTemplate('profile-entry.html')
                 .then(function(hbTemplate) {
                     // get user profile
                     FB.getMe(function(response) {
@@ -91,7 +91,7 @@ jQuery(document).ready(function() {
             // set jumbotron
 
 
-            Handlebars.loadTemplate('/facebook-post-example/_views/profile-jumbo.html')
+            Handlebars.loadTemplate('profile-jumbo.html')
                 .then(function(hbTemplate) {
                     jQuery(".jumbotron .container").html(hbTemplate({
                                                 id: data.id,
@@ -523,7 +523,7 @@ jQuery(document).ready(function() {
             jQuery("#posts_published .posts").empty();
 
             // display posts
-            Handlebars.loadTemplate('/facebook-post-example/_views/post-entry.html')
+            Handlebars.loadTemplate('post-entry.html')
                 .then(function(hbTemplate) {
 
                     // loop through posts
@@ -632,7 +632,7 @@ jQuery(document).ready(function() {
                 jQuery.broadcast("drafts:has");
             }
 
-            Handlebars.loadTemplate('/facebook-post-example/_views/post-entry.html')
+            Handlebars.loadTemplate('post-entry.html')
                 .then(function(hbTemplate) {
 
                     // loop through posts
