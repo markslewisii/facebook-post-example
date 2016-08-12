@@ -1,0 +1,51 @@
+<div class="panel panel-{{#if is_draft}}warning{{else}}info{{/if}} jq-event-listener" data-fb-postid="{{id}}">
+	<div class="panel-heading">
+		<div class="pull-right">
+			<img src="/images/loading.svg" width="20" height="20" class="loading jq-event-listener" />
+			<div class="btn-group" role="group">
+				  {{#if is_draft}}<button type="button" class="btn btn-info btn-xs publish">publish</button>{{/if}}
+				  <button type="button" class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span></button>
+			</div>
+		</div>
+		<div>
+			{{formatdate created_time}} 
+		</div>
+	</div>
+	<div class="panel-body">
+		{{#if story}}
+		<p>
+			<strong>{{story}}</strong>
+		</p>
+		{{/if}}
+
+		<p>
+		{{message}}
+		</p>
+
+
+		{{#if picture}}
+		<div>
+			<img src="{{picture}}" class="thumbnail" />
+			{{#if caption}}
+			<div class="caption">
+				{{caption}}
+			</div>
+			{{/if}}
+		</div>
+		{{/if}}
+
+	</div>
+
+	<div class="panel-footer">
+		{{#if link}}
+		<div class="pull-right">
+			<button class="btn btn-default btn-xs" onclick="window.open('{{link}}');">view {{name}} »</button>
+		</div>
+		{{/if}}
+
+		<div>
+		{{#if views}}views: <span class="post-views">{{views}}</span>{{/if}}&nbsp;
+		</div>
+	</div>
+
+</div>
